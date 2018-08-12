@@ -1,9 +1,12 @@
 package com.storemanagement.storemanagement.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -12,18 +15,22 @@ import javax.validation.constraints.NotNull;
 public class Like {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idLike;
+	private Integer idLike;
 	
 	@NotNull
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="person")
 	private Person person;
 	
 	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="idProduct")
 	private Product product;
 	
-	public Long getIdLike() {
+	public Integer getIdLike() {
 		return idLike;
 	}
-	public void setIdLike(Long idLike) {
+	public void setIdLike(Integer idLike) {
 		this.idLike = idLike;
 	}
 	public Person getPerson() {

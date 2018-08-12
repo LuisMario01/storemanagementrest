@@ -1,11 +1,18 @@
 package com.storemanagement.storemanagement.domain;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -20,12 +27,23 @@ public class Product {
 	private String product;
 	
 	@NotNull
+	@DecimalMin(value = "0.01", inclusive = true, message="Price must be equal or greater than 0.01$")
 	@Column(name="price")
 	private Double price;
 	
 	@NotNull
+	@Min(value=0, message="Stock must be equal or greater than 0")
 	@Column(name="stock")
 	private Integer stock;
+	
+	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
+	private Collection<Purchase> purchases = new ArrayList<Purchase>();
+	
+	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
+	private Collection<Like> likes = new ArrayList<Like>();
+	
+	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
+	private Collection<ProductLog> productlog = new ArrayList<ProductLog>();
 	
 	public Product() {}
 	
@@ -65,5 +83,26 @@ public class Product {
 
 	public void setStock(Integer stock) {
 		this.stock = stock;
+	}
+	
+	public Collection<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(Collection<Purchase> purchases) {
+		this.purchases = purchases;
+	}
+	
+	public Collection<Like> getLikes() {
+		return likes;
+	}
+	public void setLikes(Collection<Like> likes) {
+		this.likes = likes;
+	}
+	public Collection<ProductLog> getProductlog() {
+		return productlog;
+	}
+	public void setProductlog(Collection<ProductLog> productlog) {
+		this.productlog = productlog;
 	}
 }
