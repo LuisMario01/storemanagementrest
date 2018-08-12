@@ -1,8 +1,8 @@
 package com.storemanagement.storemanagement.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
 
-@RestController
+@RepositoryRestController
 public class MainController {
 
 }

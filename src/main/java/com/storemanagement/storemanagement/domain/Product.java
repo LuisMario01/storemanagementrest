@@ -52,6 +52,10 @@ public class Product {
 		this.stock = stock;
 		this.price = price;
 	}
+	
+	public Integer getAmountOfLikes() {
+		return this.likes.size();
+	}
 
 	public Integer getIdProduct() {
 		return idProduct;
