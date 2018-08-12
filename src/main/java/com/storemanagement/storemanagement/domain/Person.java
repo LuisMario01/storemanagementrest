@@ -36,6 +36,14 @@ public class Person {
 	@OneToMany(mappedBy="person", fetch=FetchType.LAZY)
 	private Collection<Purchase> purchases = new ArrayList<Purchase>();
 	
+	public Person() {}
+	
+	public Person(String username, String password, Integer role) {
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
+	
 	public Integer getIdPerson() {
 		return idPerson;
 	}
