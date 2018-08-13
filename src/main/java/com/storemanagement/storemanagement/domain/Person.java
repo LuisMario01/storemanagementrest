@@ -31,14 +31,14 @@ public class Person {
 	
 	@NotNull
 	@Column(name="role")
-	private Integer role;
+	private String role;
 	
 	@OneToMany(mappedBy="person", fetch=FetchType.LAZY)
 	private Collection<Purchase> purchases = new ArrayList<Purchase>();
 	
 	public Person() {}
 	
-	public Person(String username, String password, Integer role) {
+	public Person(String username, String password, String role) {
 		this.username = username;
 		this.password = password;
 		this.role = role;
@@ -68,11 +68,11 @@ public class Person {
 		this.password = password;
 	}
 
-	public Integer getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Integer role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 

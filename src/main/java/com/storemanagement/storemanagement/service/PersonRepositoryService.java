@@ -20,8 +20,8 @@ public class PersonRepositoryService {
 	public boolean loadData() {
 		boolean result;
 		try {		
-			pr.save(new Person("admin", "root",1));
-			pr.save(new Person("user", "root", 2));
+			pr.save(new Person("admin", "root","ADMIN"));
+			pr.save(new Person("user", "root", "USER"));
 			result = true;
 		}catch(Exception e) {
 			result = false;

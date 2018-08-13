@@ -8,5 +8,7 @@ import com.storemanagement.storemanagement.domain.Person;
 @RepositoryRestResource(exported = false)
 public interface PersonRepository extends JpaRepository<Person, Integer>{
 	
+	public Person findPersonByUsername(String username);
+	
 	public Person save(Person person);
 }

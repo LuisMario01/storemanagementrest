@@ -4,8 +4,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.storemanagement.storemanagement.repository.PersonRepository;
 import com.storemanagement.storemanagement.repository.ProductRepository;
 import com.storemanagement.storemanagement.domain.Product;
 
