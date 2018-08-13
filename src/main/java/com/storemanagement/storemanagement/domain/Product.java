@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -34,6 +35,7 @@ public class Product {
 	@NotNull
 	@Min(value=0, message="Stock must be equal or greater than 0")
 	@Column(name="stock")
+	@Version
 	private Integer stock;
 	
 	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
@@ -46,6 +48,10 @@ public class Product {
 	private Collection<ProductLog> productlog = new ArrayList<ProductLog>();
 	
 	public Product() {}
+	
+	public Product(Integer stock) {
+		this.stock = stock;
+	}
 	
 	public Product(String product, Double price, Integer stock){
 		this.product = product;
