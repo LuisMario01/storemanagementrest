@@ -18,19 +18,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
 	private PersonRepository pr;
 	
-	@Transactional(readOnly = true)
+	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 	    Person person = pr.findPersonByUsername(username);
 	    UserBuilder builder = null;
 	    if (person != null) {
-	      
 	      builder = org.springframework.security.core.userdetails.User.withUsername(username);
 	      builder.password(person.getPassword());
-	      String authorities = person.getRole()+"";
-	      
-	      System.out.println("\nUser: "+username+"\nPassword: "+person.getPassword()+"\nRole: "+authorities);
-
+	      String authorities = person.getRole();
 	      builder.authorities(authorities);
 	      builder.roles(authorities);
 	      

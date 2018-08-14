@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.storemanagement.storemanagement.domain.Person;
 import com.storemanagement.storemanagement.domain.Product;
+import com.storemanagement.storemanagement.domain.Purchase;
 import com.storemanagement.storemanagement.repository.PersonRepository;
 
 @Service
@@ -20,13 +21,20 @@ public class PersonRepositoryService {
 	public boolean loadData() {
 		boolean result;
 		try {		
-			pr.save(new Person("admin", "root","ADMIN"));
-			pr.save(new Person("user", "root", "USER"));
+			// Password must be Bcrypted in order to used basic auth
+			// Password: password
+			pr.save(new Person("admin", "$2a$04$AjFEmZeX7mN8zSn57PUEZeJgBeoKMvwteZMBiP57Jb4AGFsUORmLC","ADMIN"));
+			pr.save(new Person("user", "$2a$04$AjFEmZeX7mN8zSn57PUEZeJgBeoKMvwteZMBiP57Jb4AGFsUORmLC", "USER"));
 			result = true;
 		}catch(Exception e) {
 			result = false;
 		}
 		return result;
+	}
+	
+	@Transactional
+	public Purchase buyProduct() {
+		return new Purchase();
 	}
 
 }

@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,9 +21,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Component;
 
+import com.storemanagement.storemanagement.controller.MainController;
 import com.storemanagement.storemanagement.service.PersonRepositoryService;
 import com.storemanagement.storemanagement.service.ProductRepositoryService;
+import com.storemanagement.storemanagement.service.UserDetailsServiceImpl;
 
+@ComponentScan
 @SpringBootApplication
 public class StoremanagementApplication {
 	
@@ -46,6 +50,7 @@ public class StoremanagementApplication {
 	}
 	
 	@Configuration
+	@ComponentScan(basePackageClasses = UserDetailsServiceImpl.class)
 	@EnableGlobalMethodSecurity(prePostEnabled = true)
 	@EnableWebSecurity
 	static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -60,18 +65,31 @@ public class StoremanagementApplication {
 		
 		@Override
 		  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		    auth.userDetailsService(userDetailsService);
+		    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 		  }
+		  
+		  
+		  /*
+		@Autowired
+		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+			auth.inMemoryAuthentication().withUser("john123").password("$2a$04$AjFEmZeX7mN8zSn57PUEZeJgBeoKMvwteZMBiP57Jb4AGFsUORmLC").roles("USER");
+		}
+		*/
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.httpBasic().and().authorizeRequests().//
+			http.httpBasic().
+					and().
+					authorizeRequests().//
 					antMatchers("/store").permitAll().
 					antMatchers(HttpMethod.GET, "/store/products").permitAll().
-					antMatchers(HttpMethod.POST, "/store/**").hasAnyRole("ROLE_ADMIN", "ROLE_USER").//
-					antMatchers(HttpMethod.DELETE, "/store/products/**").hasAnyRole("ROLE_ADMIN", "ROLE_USER").//
+					antMatchers(HttpMethod.POST, "/store/**").hasAnyRole("ROLE_ADMIN", "ADMIN", "USER", "ROLE_USER").//
+					/*antMatchers(HttpMethod.DELETE, "/store/products/**").hasAnyRole("ROLE_ADMIN", "ROLE_USER").//
 					antMatchers(HttpMethod.PUT, "/store/products/**").hasAnyRole("ROLE_ADMIN", "ROLE_USER").//
-					antMatchers(HttpMethod.PATCH, "/store/products/**").hasAnyRole("ROLE_ADMIN", "ROLE_USER").and().//
+					antMatchers(HttpMethod.PATCH, "/store/products/**").hasAnyRole("ROLE_ADMIN", "ROLE_USER").
+					*/
+					and().//
+					logout().clearAuthentication(true).and().
 					csrf().disable();
 		}
 }

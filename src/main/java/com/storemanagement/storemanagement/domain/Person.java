@@ -25,7 +25,7 @@ public class Person {
 	@Column(name="username", unique = true, length=8)
 	private String username;
 	
-	@Column(name="password", length=8)
+	@Column(name="password", length=64)
 	@NotNull(message = "Field: password cannot be null")
 	private String password;
 	

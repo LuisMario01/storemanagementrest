@@ -7,5 +7,6 @@ import com.storemanagement.storemanagement.domain.Purchase;
 
 @RepositoryRestResource(collectionResourceRel = "purchases", path = "purchases")
 public interface PurchaseRepository extends JpaRepository<Purchase, Integer> {
+	
 	public Purchase save(Purchase purchase);
 }
