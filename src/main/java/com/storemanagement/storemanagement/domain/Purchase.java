@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.NotAudited;
+
 @Entity
 @Table(name="purchase")
 public class Purchase {
@@ -24,6 +26,7 @@ public class Purchase {
 	@JoinColumn(name="idPerson")
 	private Person person;
 	
+	@NotAudited
 	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idProduct")

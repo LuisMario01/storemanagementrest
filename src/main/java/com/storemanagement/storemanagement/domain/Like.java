@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.NotAudited;
+
 @Entity
 @Table(name="likes")
 public class Like {
@@ -22,6 +24,7 @@ public class Like {
 	@JoinColumn(name="person")
 	private Person person;
 	
+	@NotAudited
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="idProduct")

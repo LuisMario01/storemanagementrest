@@ -16,13 +16,18 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+
 @Entity
 @Table(name="product")
+@Audited
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idProduct;
 
+	@NotAudited
 	@NotNull
 	@Column(name="product")
 	private String product;
@@ -32,20 +37,20 @@ public class Product {
 	@Column(name="price")
 	private Double price;
 	
+	@NotAudited
 	@NotNull
 	@Min(value=0, message="Stock must be equal or greater than 0")
 	@Column(name="stock")
 	@Version
 	private Integer stock;
 	
+	@NotAudited
 	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
 	private Collection<Purchase> purchases = new ArrayList<Purchase>();
 	
+	@NotAudited
 	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
 	private Collection<Like> likes = new ArrayList<Like>();
-	
-	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
-	private Collection<ProductLog> productlog = new ArrayList<ProductLog>();
 	
 	public Product() {}
 	
@@ -108,11 +113,5 @@ public class Product {
 	}
 	public void setLikes(Collection<Like> likes) {
 		this.likes = likes;
-	}
-	public Collection<ProductLog> getProductlog() {
-		return productlog;
-	}
-	public void setProductlog(Collection<ProductLog> productlog) {
-		this.productlog = productlog;
 	}
 }

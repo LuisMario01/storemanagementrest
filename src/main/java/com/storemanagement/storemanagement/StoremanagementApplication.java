@@ -59,35 +59,28 @@ public class StoremanagementApplication {
 		private UserDetailsService userDetailsService;
 		
 		@Bean
-		  public BCryptPasswordEncoder passwordEncoder() {
-		    return new BCryptPasswordEncoder();
-		  };
+		public BCryptPasswordEncoder passwordEncoder() {
+			return new BCryptPasswordEncoder();
+		}
 		
 		@Override
-		  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-		  }
-		  
-		  
-		  /*
-		@Autowired
-		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-			auth.inMemoryAuthentication().withUser("john123").password("$2a$04$AjFEmZeX7mN8zSn57PUEZeJgBeoKMvwteZMBiP57Jb4AGFsUORmLC").roles("USER");
+		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+			auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 		}
-		*/
-
+		  
+		  
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
+			// Allowing h2 console to show for test purposes
+			http.headers().frameOptions().sameOrigin();
 			http.httpBasic().
 					and().
 					authorizeRequests().//
 					antMatchers("/store").permitAll().
 					antMatchers(HttpMethod.GET, "/store/products").permitAll().
-					antMatchers(HttpMethod.POST, "/store/**").hasAnyRole("ROLE_ADMIN", "ADMIN", "USER", "ROLE_USER").//
-					/*antMatchers(HttpMethod.DELETE, "/store/products/**").hasAnyRole("ROLE_ADMIN", "ROLE_USER").//
-					antMatchers(HttpMethod.PUT, "/store/products/**").hasAnyRole("ROLE_ADMIN", "ROLE_USER").//
-					antMatchers(HttpMethod.PATCH, "/store/products/**").hasAnyRole("ROLE_ADMIN", "ROLE_USER").
-					*/
+					antMatchers(HttpMethod.POST, "/store/**").hasAnyRole("ADMIN").//
+					antMatchers(HttpMethod.DELETE, "/store/products/**").hasAnyRole("ADMIN").//
+					antMatchers(HttpMethod.PATCH, "/store/products/{pid}").hasAnyRole("ADMIN").//
 					and().//
 					logout().clearAuthentication(true).and().
 					csrf().disable();
