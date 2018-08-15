@@ -76,11 +76,17 @@ public class StoremanagementApplication {
 			http.httpBasic().
 					and().
 					authorizeRequests().//
-					antMatchers("/store").permitAll().
-					antMatchers(HttpMethod.GET, "/store/products").permitAll().
-					antMatchers(HttpMethod.POST, "/store/**").hasAnyRole("ADMIN").//
+					antMatchers("/store").permitAll().//
+					// Listing methods
+					antMatchers(HttpMethod.GET, "/store/products").permitAll().//
+					// Adding new product
+					antMatchers(HttpMethod.POST, "/store/products/**").hasAnyRole("ADMIN").//
+					// Deleting product
 					antMatchers(HttpMethod.DELETE, "/store/products/**").hasAnyRole("ADMIN").//
+					// Updating product price
 					antMatchers(HttpMethod.PATCH, "/store/products/{pid}").hasAnyRole("ADMIN").//
+					// Making a purchase
+					antMatchers(HttpMethod.POST, "/store/purchases/**").hasAnyRole("ADMIN", "USER").//
 					and().//
 					logout().clearAuthentication(true).and().
 					csrf().disable();

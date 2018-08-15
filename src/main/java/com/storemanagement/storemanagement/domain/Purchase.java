@@ -21,13 +21,11 @@ public class Purchase {
 	@GeneratedValue
 	private Integer idPurchase;
 	
-	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idPerson")
 	private Person person;
 	
 	@NotAudited
-	@NotNull
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idProduct")
 	private Product product;
@@ -39,6 +37,15 @@ public class Purchase {
 	@NotNull
 	@Column(name="date")
 	private Date date;
+	
+	public Purchase() {}
+	
+	public Purchase(Person person, Product product, Integer amount) {
+		this.person = person;
+		this.product = product;
+		this.amount = amount;
+		this.date = new Date();
+	}
 	
 	public Integer getIdPurchase() {
 		return idPurchase;

@@ -17,6 +17,8 @@ import com.storemanagement.storemanagement.projections.ProductProjection;
 public interface ProductRepository extends JpaRepository<Product, Integer>{
 	public List<Product> findAll();
 	
+	public Product findProductByIdProduct(Integer idProduct);
+	
 	public Product save(Product product);
 	
 	public Product findByOrderByProduct();
