@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.storemanagement.storemanagement.domain.Person;
-import com.storemanagement.storemanagement.domain.Product;
-import com.storemanagement.storemanagement.domain.Purchase;
 import com.storemanagement.storemanagement.repository.PersonRepository;
 
 @Service
@@ -31,10 +29,4 @@ public class PersonRepositoryService {
 		}
 		return result;
 	}
-	
-	@Transactional
-	public Purchase buyProduct() {
-		return new Purchase();
-	}
-
 }

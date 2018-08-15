@@ -49,6 +49,8 @@ public class StoremanagementApplication {
 	    }
 	}
 	
+	
+	// Security configuration
 	@Configuration
 	@ComponentScan(basePackageClasses = UserDetailsServiceImpl.class)
 	@EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -87,6 +89,8 @@ public class StoremanagementApplication {
 					antMatchers(HttpMethod.PATCH, "/store/products/{pid}").hasAnyRole("ADMIN").//
 					// Making a purchase
 					antMatchers(HttpMethod.POST, "/store/purchases/**").hasAnyRole("ADMIN", "USER").//
+					// Liking a product
+					antMatchers(HttpMethod.POST, "/store/purchases/{pid}/like").hasAnyRole("ADMIN", "USER").//
 					and().//
 					logout().clearAuthentication(true).and().
 					csrf().disable();

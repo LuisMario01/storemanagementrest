@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
-import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.storemanagement.storemanagement.domain.Product;
 import com.storemanagement.storemanagement.projections.ProductProjection;
@@ -21,5 +20,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 	
 	public Product save(Product product);
 	
-	public Product findByOrderByProduct();
+	@RestResource(path = "byName", rel = "byName")
+	public Product findByProduct(@Param("product") String product);
 }

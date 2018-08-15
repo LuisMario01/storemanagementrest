@@ -23,4 +23,11 @@ public class MainController {
 	public ResponseEntity<?> purchase(@RequestBody PurchaseDTO purchase, HttpServletRequest req){
 		return prs.purchase(purchase,req);
 	}
+	
+	/*
+	@RequestMapping(method=RequestMethod.POST, value="/store/products/{pid}/like")
+	@ResponseBody
+	public ResponseEntity<?> like(HttpServletRequest req){
+	}
+	*/
 }
