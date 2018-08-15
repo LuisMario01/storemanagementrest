@@ -23,6 +23,7 @@ import org.hibernate.envers.NotAudited;
 import org.springframework.data.annotation.CreatedBy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @Table(name="product")
@@ -59,7 +60,7 @@ public class Product {
 	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
 	private Collection<Like> likes = new ArrayList<Like>();
 	
-	@JsonIgnore
+	@JsonInclude
 	@NotAudited
 	@Formula("(select count(likes.id_like) from likes where likes.id_product = id_product)")
 	private Integer likeAmount;
@@ -136,10 +137,10 @@ public class Product {
 	}
 	
 	public String toString() {
-		return "{\n\"idProduct\": \" "+this.idProduct+
+		return "\t"+"{\n\"idProduct\": \" "+this.idProduct+
 				"\n\"product\": \""+this.product+"\""+
 				"\n\"price\": "+this.price+
 				"\n\"stock\": "+this.stock+
-				"\"\n"+"\"likeAmount\":\" "+this.likeAmount+"\n}\n";
+				"\"\n"+"\"likeAmount\":\" "+this.likeAmount+"\n}";
 	}
 }

@@ -53,12 +53,7 @@ public class ProductRepositoryService {
 					return criteria;
 				}
 			});
-			String response = "";
-			
-			for(Product product : products) {
-				response += product.toString();
-			}
-			return ResponseEntity.ok(response);
+			return ResponseEntity.ok(products);
 		}
 		catch(Exception e) {
 			return ResponseEntity.badRequest().build();
