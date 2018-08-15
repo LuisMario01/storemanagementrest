@@ -22,7 +22,7 @@ public class MainController {
 	
 	@Autowired
 	private LikeRepositoryService lrs;
-
+	
 	@RequestMapping(method=RequestMethod.POST, value="/store/purchases")
 	@ResponseBody
 	public ResponseEntity<?> purchase(@RequestBody PurchaseDTO purchase, HttpServletRequest req){
