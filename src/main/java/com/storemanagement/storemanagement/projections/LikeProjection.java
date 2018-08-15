@@ -9,7 +9,6 @@ import com.storemanagement.storemanagement.domain.Product;
 @Projection(name = "likeNoPersonProjection", types = {Like.class })
 public interface LikeProjection {
 	public Integer getIdLike() ;
-	
 	@JsonIgnore
 	public Product getProduct();
 }

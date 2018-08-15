@@ -16,9 +16,13 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Formula;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.springframework.data.annotation.CreatedBy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="product")
@@ -45,13 +49,20 @@ public class Product {
 	@Version
 	private Integer stock;
 	
+	@JsonIgnore
 	@NotAudited
 	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
 	private Collection<Purchase> purchases = new ArrayList<Purchase>();
 	
+	@JsonIgnore
 	@NotAudited
 	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
 	private Collection<Like> likes = new ArrayList<Like>();
+	
+	@JsonIgnore
+	@NotAudited
+	@Formula("(select count(likes.id_like) from likes where likes.id_product = id_product)")
+	private Integer likeAmount;
 	
 	public Product() {}
 	
@@ -63,6 +74,14 @@ public class Product {
 		this.product = product;
 		this.stock = stock;
 		this.price = price;
+	}
+	
+	public Integer getLikeAmount() {
+		return likeAmount;
+	}
+	
+	public void setLikeAmount(Integer likeAmount) {
+		this.likeAmount = likeAmount;
 	}
 	
 	public Integer getAmountOfLikes() {
@@ -114,5 +133,13 @@ public class Product {
 	}
 	public void setLikes(Collection<Like> likes) {
 		this.likes = likes;
+	}
+	
+	public String toString() {
+		return "{\n\"idProduct\": \" "+this.idProduct+
+				"\n\"product\": \""+this.product+"\""+
+				"\n\"price\": "+this.price+
+				"\n\"stock\": "+this.stock+
+				"\"\n"+"\"likeAmount\":\" "+this.likeAmount+"\n}\n";
 	}
 }

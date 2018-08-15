@@ -80,7 +80,7 @@ public class StoremanagementApplication {
 					authorizeRequests().//
 					antMatchers("/store").permitAll().//
 					// Listing methods
-					antMatchers(HttpMethod.GET, "/store/products").permitAll().//
+					antMatchers(HttpMethod.GET, "/store/products/**").permitAll().//
 					// Adding new product
 					antMatchers(HttpMethod.POST, "/store/products/").hasAnyRole("ADMIN").//
 					// Deleting product

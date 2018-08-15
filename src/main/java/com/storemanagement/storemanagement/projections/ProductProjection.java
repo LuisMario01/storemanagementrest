@@ -16,7 +16,5 @@ public interface ProductProjection {
 	
 	public Integer getStock();
 	
-	@Value("#{target.likes.size()}")
-	public Integer getTimesLiked();
-
+	public Integer getLikeAmount();
 }
