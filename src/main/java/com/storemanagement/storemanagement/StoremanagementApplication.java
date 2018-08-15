@@ -80,15 +80,19 @@ public class StoremanagementApplication {
 					authorizeRequests().//
 					antMatchers("/store").permitAll().//
 					// Listing methods
-					antMatchers(HttpMethod.GET, "/store/products/**").permitAll().//
+					antMatchers(HttpMethod.GET, "/store/products/").permitAll().//
+					// Listing methods
+					antMatchers(HttpMethod.GET, "/store/products/byLike").permitAll().//
 					// Adding new product
-					antMatchers(HttpMethod.POST, "/store/products/").hasAnyRole("ADMIN").//
+					antMatchers(HttpMethod.POST, "/store/products/").hasRole("ADMIN").//
+					// Adding new product
+					antMatchers(HttpMethod.POST, "/store/products**").hasRole("ADMIN").//
 					// Deleting product
-					antMatchers(HttpMethod.DELETE, "/store/products/").hasAnyRole("ADMIN").//
+					antMatchers(HttpMethod.DELETE, "/store/products/").hasRole("ADMIN").//
 					// Updating product price
-					antMatchers(HttpMethod.PATCH, "/store/products/{pid}").hasAnyRole("ADMIN").//
+					antMatchers(HttpMethod.PATCH, "/store/products/{pid}").hasRole("ADMIN").//
 					// Making a purchase
-					antMatchers(HttpMethod.POST, "/store/purchases/**").hasAnyRole("ADMIN", "USER").//
+					antMatchers(HttpMethod.POST, "/store/purchases**").hasAnyRole("ADMIN", "USER").//
 					// Liking a product
 					antMatchers(HttpMethod.POST, "/store/products/{pid}/like").hasAnyRole("ADMIN", "USER").//
 					and().//

@@ -121,6 +121,7 @@ public class Product {
 		this.stock = stock;
 	}
 	
+	@JsonIgnore
 	public Collection<Purchase> getPurchases() {
 		return purchases;
 	}

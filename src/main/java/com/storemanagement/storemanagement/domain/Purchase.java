@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.envers.NotAudited;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="purchase")
 public class Purchase {
@@ -25,6 +27,7 @@ public class Purchase {
 	@JoinColumn(name="idPerson")
 	private Person person;
 	
+	@JsonIgnore
 	@NotAudited
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idProduct")
@@ -53,6 +56,8 @@ public class Purchase {
 	public void setIdPurchase(Integer idPurchase) {
 		this.idPurchase = idPurchase;
 	}
+	
+	@JsonIgnore
 	public Product getProduct() {
 		return product;
 	}

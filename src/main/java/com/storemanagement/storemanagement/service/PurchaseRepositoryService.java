@@ -46,10 +46,10 @@ public class PurchaseRepositoryService {
 		        // Product stock validation
 		        if(product.getStock()>purchasedto.getAmount()) {
 		        	Purchase purchase = new Purchase(person, product, purchasedto.getAmount());
-		        	product.setStock(product.getStock()-purchase.getAmount());
+		        	product.setStock(product.getStock()-purchasedto.getAmount());
 			        pur.save(purchase);
 			        prr.save(product); // Updating new product price.
-			        return ResponseEntity.ok(purchase); 
+			        return ResponseEntity.ok(""); 
 	
 		        }
 		        else {
