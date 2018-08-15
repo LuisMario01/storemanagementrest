@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.envers.NotAudited;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="likes")
 public class Like {
@@ -30,6 +32,13 @@ public class Like {
 	@JoinColumn(name="idProduct")
 	private Product product;
 	
+	public Like() {}
+	
+	public Like(Person person, Product product) {
+		this.person = person;
+		this.product = product;
+	}
+	
 	public Integer getIdLike() {
 		return idLike;
 	}
@@ -42,6 +51,8 @@ public class Like {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
+	
+	@JsonIgnore
 	public Product getProduct() {
 		return product;
 	}

@@ -82,15 +82,15 @@ public class StoremanagementApplication {
 					// Listing methods
 					antMatchers(HttpMethod.GET, "/store/products").permitAll().//
 					// Adding new product
-					antMatchers(HttpMethod.POST, "/store/products/**").hasAnyRole("ADMIN").//
+					antMatchers(HttpMethod.POST, "/store/products/").hasAnyRole("ADMIN").//
 					// Deleting product
-					antMatchers(HttpMethod.DELETE, "/store/products/**").hasAnyRole("ADMIN").//
+					antMatchers(HttpMethod.DELETE, "/store/products/").hasAnyRole("ADMIN").//
 					// Updating product price
 					antMatchers(HttpMethod.PATCH, "/store/products/{pid}").hasAnyRole("ADMIN").//
 					// Making a purchase
 					antMatchers(HttpMethod.POST, "/store/purchases/**").hasAnyRole("ADMIN", "USER").//
 					// Liking a product
-					antMatchers(HttpMethod.POST, "/store/purchases/{pid}/like").hasAnyRole("ADMIN", "USER").//
+					antMatchers(HttpMethod.POST, "/store/products/{pid}/like").hasAnyRole("ADMIN", "USER").//
 					and().//
 					logout().clearAuthentication(true).and().
 					csrf().disable();

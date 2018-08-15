@@ -5,6 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.storemanagement.storemanagement.domain.Person;
 
+//This repository won't be exposed through the API
 @RepositoryRestResource(exported = false)
 public interface PersonRepository extends JpaRepository<Person, Integer>{
 	
