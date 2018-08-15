@@ -41,13 +41,13 @@ public class Product {
 	@NotNull
 	@DecimalMin(value = "0.01", inclusive = true, message="Price must be equal or greater than 0.01$")
 	@Column(name="price")
+	//@Version
 	private Double price;
 	
 	@NotAudited
 	@NotNull
 	@Min(value=0, message="Stock must be equal or greater than 0")
-	@Column(name="stock")
-	@Version
+	@Column(name="stock", updatable=true)
 	private Integer stock;
 	
 	@JsonIgnore

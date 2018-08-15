@@ -41,19 +41,25 @@ public class PurchaseRepositoryService {
 		        // credentials = username:password
 		        values = credentials.split(":",2);
 		        
+		        System.out.println("Purchase DTO: "+purchasedto.getAmount());
+		        
 		        Person person = per.findPersonByUsername(values[0]);
-		        Product product = prr.findProductByIdProduct(purchasedto.getProduct());
+		        
+		        Product product = new Product();
+		        product = prr.findProductByIdProduct(purchasedto.getProduct());
+		        
 		        // Product stock validation
 		        if(product.getStock()>purchasedto.getAmount()) {
+		        	System.out.println("Product: "+product.getStock());
 		        	Purchase purchase = new Purchase(person, product, purchasedto.getAmount());
-		        	product.setStock(product.getStock()-purchasedto.getAmount());
 			        pur.save(purchase);
+			        product.setStock(product.getStock()-purchasedto.getAmount());
 			        prr.save(product); // Updating new product price.
-			        return ResponseEntity.ok(""); 
+			        return ResponseEntity.ok("201 - Created. Purchase done."); 
 	
 		        }
 		        else {
-		        	return ResponseEntity.unprocessableEntity().build();
+		        	return ResponseEntity.badRequest().body("406 - Not acceptable. Not enough products");
 		        }
 		    }
 		    return ResponseEntity.badRequest().build();
