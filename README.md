@@ -70,6 +70,8 @@ https://storemanagementrest.herokuapp.com/store/
 
 
 ### Spring MVC
+Spring Data Rest integrated with Spring MVC gives flexibility when working with specialized queries that don't exactly match with a
+method provided by repositories. In this project, a controller is used to perform only 3 activities required by the API.
 ### Spring Data JPA
 Spring Data JPA provides a set of well-defined interfaces and methods that allow an easy manipulation of the data layer. A repository
 is created for every entity that needs to be persisted, in this case, all of the entities. 
