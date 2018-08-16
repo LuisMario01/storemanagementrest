@@ -13,18 +13,16 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.User.UserBuilder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Component;
-
-import com.storemanagement.storemanagement.controller.MainController;
 import com.storemanagement.storemanagement.service.PersonRepositoryService;
 import com.storemanagement.storemanagement.service.ProductRepositoryService;
 import com.storemanagement.storemanagement.service.UserDetailsServiceImpl;
+
+/**
+ * @author Luis De Paz luismario.depaz@gmail.com
+ */
 
 @ComponentScan
 @SpringBootApplication
@@ -40,6 +38,9 @@ public class StoremanagementApplication {
 		SpringApplication.run(StoremanagementApplication.class, args);
 	}
 	
+	/*
+	 * Loading dummy data after app initialization.
+	 */
 	@Component
 	public class CommandLineAppStartupRunner implements CommandLineRunner {
 	    @Override
