@@ -3,6 +3,7 @@ package com.storemanagement.storemanagement.domain;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -52,12 +53,12 @@ public class Product {
 	
 	@JsonIgnore
 	@NotAudited
-	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private Collection<Purchase> purchases = new ArrayList<Purchase>();
 	
 	@JsonIgnore
 	@NotAudited
-	@OneToMany(mappedBy="product", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private Collection<Like> likes = new ArrayList<Like>();
 	
 	@JsonInclude

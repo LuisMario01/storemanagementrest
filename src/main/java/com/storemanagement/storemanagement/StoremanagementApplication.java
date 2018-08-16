@@ -49,7 +49,6 @@ public class StoremanagementApplication {
 	    }
 	}
 	
-	
 	// Security configuration
 	@Configuration
 	@ComponentScan(basePackageClasses = UserDetailsServiceImpl.class)
@@ -88,7 +87,7 @@ public class StoremanagementApplication {
 					// Adding new product
 					antMatchers(HttpMethod.POST, "/store/products**").hasRole("ADMIN").//
 					// Deleting product
-					antMatchers(HttpMethod.DELETE, "/store/products/").hasRole("ADMIN").//
+					antMatchers(HttpMethod.DELETE, "/store/products/**").hasRole("ADMIN").//
 					// Updating product price
 					antMatchers(HttpMethod.PATCH, "/store/products/{pid}").hasRole("ADMIN").//
 					// Making a purchase

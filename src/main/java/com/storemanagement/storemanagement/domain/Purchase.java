@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.envers.NotAudited;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,6 +33,7 @@ public class Purchase {
 	@NotAudited
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idProduct")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Product product;
 	
 	@NotNull
