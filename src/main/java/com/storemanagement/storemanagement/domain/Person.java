@@ -25,6 +25,9 @@ public class Person {
 	@Column(name="username", unique = true, length=8)
 	private String username;
 	
+	/*
+	 * Validation of password field
+	 * */
 	@Column(name="password", length=64)
 	@NotNull(message = "Field: password cannot be null")
 	private String password;

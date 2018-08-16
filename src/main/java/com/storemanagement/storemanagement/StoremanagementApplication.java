@@ -49,7 +49,9 @@ public class StoremanagementApplication {
 	    }
 	}
 	
-	// Security configuration
+	/* Security configuration
+	 * This class is used to determine access point authorization for the API.
+	 */
 	@Configuration
 	@ComponentScan(basePackageClasses = UserDetailsServiceImpl.class)
 	@EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -64,6 +66,7 @@ public class StoremanagementApplication {
 			return new BCryptPasswordEncoder();
 		}
 		
+		// Overriding configuration for user extraction. Consult package service for info.
 		@Override
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());

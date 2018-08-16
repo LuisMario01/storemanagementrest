@@ -10,14 +10,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.storemanagement.storemanagement.repository.ProductRepository;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.storemanagement.storemanagement.domain.Product;
 
 @Service
@@ -25,7 +21,9 @@ public class ProductRepositoryService {
 	@Autowired
 	private ProductRepository pr;
 	
-	// Loading demo data
+	/*
+	 * Method used to load product dummy data
+	 * */
 	@Transactional
 	public boolean loadData() {
 		boolean result;
@@ -42,6 +40,10 @@ public class ProductRepositoryService {
 		return result;
 	}
 	
+	/*
+	 * Method to perform order using like sorting. 
+	 * Criteria API is used to build query on a programmatical level.
+	 * */
 	public ResponseEntity<?> sortByLike(){
 		try {
 			List<Product> products = pr.findAll(new Specification<Product>(){

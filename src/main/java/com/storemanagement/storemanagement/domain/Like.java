@@ -26,6 +26,9 @@ public class Like {
 	@JoinColumn(name="person")
 	private Person person;
 	
+	/*
+	 * @NotAudited annotation to avoid log on product table from like entity
+	 * */
 	@NotAudited
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -52,6 +55,9 @@ public class Like {
 		this.person = person;
 	}
 	
+	/*
+	 * Product serialization not performed on a Like-type resource
+	 * */
 	@JsonIgnore
 	public Product getProduct() {
 		return product;
@@ -59,7 +65,4 @@ public class Like {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	
-	
-	
 }

@@ -12,6 +12,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+/*
+ * Service implementation for Basic Authorization with user and password. 
+ * Extraction from database is performed here
+ * */
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 	

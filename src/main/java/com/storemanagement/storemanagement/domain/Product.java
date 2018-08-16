@@ -12,20 +12,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Formula;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
-import org.springframework.data.annotation.CreatedBy;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+/*
+ * Entity auditioning performed with Hibernated Envers. Only price field is tracked.
+ * */
 @Entity
 @Table(name="product")
 @Audited
@@ -61,6 +60,9 @@ public class Product {
 	@OneToMany(mappedBy="product", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private Collection<Like> likes = new ArrayList<Like>();
 	
+	/*
+	 * @Formula annotation used to calculate ad-hoc fields from database and perform the sorting.
+	 * */
 	@JsonInclude
 	@NotAudited
 	@Formula("(select count(likes.id_like) from likes where likes.id_product = id_product)")
